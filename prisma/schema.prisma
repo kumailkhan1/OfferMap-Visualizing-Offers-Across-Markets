@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model bookies {
+  id   Int     @id @default(autoincrement())
+  name String  @db.VarChar(255)
+  logo String? @db.VarChar(255)
+}
+
+model bookiesmarkets {
+  id   String @id @db.VarChar(255)
+  name String @db.VarChar(255)
+}
+
+model gametype {
+  id   Int    @id @default(autoincrement())
+  type String @db.VarChar(255)
+}
+
+model offerings {
+  id                   Int       @id @default(autoincrement())
+  recorded_at          DateTime? @db.DateTime(0)
+  bookies_name         String    @db.VarChar(60)
+  discount_text        String    @db.VarChar(250)
+  discount_description String?   @db.VarChar(1200)
+  landingpage_URL      String?   @db.VarChar(600)
+  gametype_id          Int?      @db.SmallInt
+  source_id            Int?      @db.SmallInt
+  language_id          Int?      @default(1) @db.SmallInt
+  min_deposit          String?   @db.VarChar(30)
+  max_deposit          String?   @db.VarChar(30)
+  customer_check       Boolean?  @default(false)
+  new_customer         Boolean?  @default(false)
+  bookiesmarkets_id    String    @db.VarChar(255)
+}
