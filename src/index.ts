@@ -3,6 +3,8 @@ import express, { Express } from "express";
 import morgan from "morgan";
 import { BookiesRouter } from "./routes/BookiesRoutes";
 import { GametypesRouter } from "./routes/GametypeRoutes";
+import { BookiesMarketsRouter } from "./routes/BookiesMarketsRoutes";
+import { OfferingsRouter } from "./routes/OfferingsRoutes";
 
 const router: Express = express();
 
@@ -31,6 +33,8 @@ router.use((req, res, next) => {
 /** Available Routes */
 router.use("/bookies", BookiesRouter);
 router.use("/gametype", GametypesRouter);
+router.use("/markets", BookiesMarketsRouter);
+router.use("/offerings",OfferingsRouter)
 
 // Error handler
 
