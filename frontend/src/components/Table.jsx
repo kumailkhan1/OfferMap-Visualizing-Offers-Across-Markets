@@ -3,11 +3,18 @@ import { DataGrid } from '@mui/x-data-grid';
 
 
 
-const Table = ({rows,columns}) => {
+const Table = ({ rows, columns }) => {
     return (
-        <div style={{ height: 300, width: '100%' }}>
+        <div style={{ height: "700px", width: '100%' }}>
             <DataGrid
-                rows={rows} columns={columns}
+                sx={{
+                    '&.MuiDataGrid-root--densityStandard .MuiDataGrid-cell': { py: '15px' },
+                    '& .MuiDataGrid-row': { borderTopColor: '#181c44', borderTopStyle: 'solid' } 
+                }}
+                getRowHeight={() => 'auto'}
+                pageSize={25}
+                rows={rows}
+                columns={columns}
             />
         </div>
     );

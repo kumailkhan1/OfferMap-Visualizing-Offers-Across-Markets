@@ -25,15 +25,17 @@ const columns = [
     { field: 'language_id', headerName: 'Language' },
     { field: 'min_deposit', headerName: 'Min. Deposit' },
     { field: 'max_deposit ', headerName: 'Max Deposit' },
-    { field: 'customer_check' },
-    { field: 'new_customer' },
+    { field: 'customer_check', headerName: 'Customer Check' },
+    { field: 'new_customer', headerName: 'New Customer' },
     { field: 'bookiesmarkets_id', headerName: 'Country' }
 ];
 
 
 const App = () => {
-    const [rows, setRows] = useState([])
-
+    const [rows, setRows] = useState([]);
+    const [skip, setSkip] = useState(0);
+    const [take,setTake] = useState(100);
+    
     useEffect(() => {
 
         async function fetchData() {
@@ -57,11 +59,12 @@ const App = () => {
                 </AppBar>
                 <main>
                     <div>
-                        <Container style={{ padding: '20px 0' }}>
+                        <Container style={{ padding: '20px 0' }} maxHeight='100%'>
                             <Typography variant='h3' align='center' color='primary' gutterBottom>Dashboard</Typography>
                             <Typography variant='h4' align='left'>Offers</Typography>
+                            <Table rows={rows} columns={columns}></Table>
                         </Container>
-                        <Table rows={rows} columns={columns}></Table>
+
 
                     </div>
                 </main>
