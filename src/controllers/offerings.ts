@@ -3,11 +3,14 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const getAllOfferings = async (req: Request,res: Response,next: NextFunction) => {
-    
+const getAllOfferings = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const offerings = await prisma.offerings.findMany({
     skip: Number(req.params.skip),
-    take: Number(req.params.take)
+    take: Number(req.params.take),
   });
   return res.status(200).json({
     offerings,

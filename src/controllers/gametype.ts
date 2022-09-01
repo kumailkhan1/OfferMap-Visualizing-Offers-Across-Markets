@@ -3,7 +3,11 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const getAllGametypes = async (req: Request,res: Response,next: NextFunction) => {
+const getAllGametypes = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const gametypes = await prisma.gametype.findMany();
   return res.status(200).json({
     gametypes,

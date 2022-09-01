@@ -34,7 +34,7 @@ router.use((req, res, next) => {
 router.use("/bookies", BookiesRouter);
 router.use("/gametype", GametypesRouter);
 router.use("/markets", BookiesMarketsRouter);
-router.use("/offerings",OfferingsRouter)
+router.use("/offerings", OfferingsRouter);
 
 // Error handler
 
