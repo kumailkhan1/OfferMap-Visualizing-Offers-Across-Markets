@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AppBar, CssBaseline, Typography, Toolbar, Container } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import DataTable from './components/DataTable';
+import DataTable from './components/DataTable/index';
 import { getAllOffers } from './services/OffersService';
+
 
 const theme = createTheme({
     palette: {
@@ -13,37 +14,19 @@ const theme = createTheme({
     }
 });
 
-const columns = [
-    { name: 'id', title: 'ID' },
-    { name: 'recorded_at', title: 'Offer Date' },
-    { name: 'bookies_name', title: 'Bookie Name' },
-    { name: 'discount_text', title: 'Discount' },
-    { name: 'discount_description', title: 'Description' },
-    { name: 'landingpage_URL', title: 'Link' },
-    { name: 'gametype_id', title: 'Game Type' },
-    { name: 'source_id ', title: 'Source ID' },
-    { name: 'language_id', title: 'Language' },
-    { name: 'min_deposit', title: 'Min. Deposit' },
-    { name: 'max_deposit ', title: 'Max Deposit' },
-    { name: 'customer_check', title: 'Customer Check' },
-    { name: 'new_customer', title: 'New Customer' },
-    { name: 'bookiesmarkets_id', title: 'Country' }
-];
-
-
 const App = () => {
     const [rows, setRows] = useState([]);
     const [skip, setSkip] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalCount, setTotalCount] = useState(79429);
     const [take] = useState(10);
+    const filterby = {};
 
     useEffect(() => {
 
         async function fetchData() {
-            let newRows = await getAllOffers(take * currentPage, take);
-            console.log(newRows)
-
+            let newRows = await getAllOffers(take * currentPage, take, filterby);
+            console.log(newRows.offerings)
             setRows(newRows.offerings)
 
         }

@@ -1,12 +1,7 @@
-import React from "react";
-import { Paper } from "@mui/material";
-import {
-    Grid,
-    Table,
-    TableHeaderRow,
-    PagingPanel,
-} from "@devexpress/dx-react-grid-material-ui";
-import { PagingState, CustomPaging, SortingState, IntegratedSorting } from "@devexpress/dx-react-grid";
+import { DataTypeProvider } from "@devexpress/dx-react-grid";
+import { Table } from "@devexpress/dx-react-grid-material-ui";
+
+
 
 export const COLUMNS = {
     ID: "id",
@@ -25,6 +20,9 @@ export const COLUMNS = {
     BOOKIES_MARKETS_ID: "bookiesmarkets_id"
 };
 
+
+
+
 export const columns = [
     { name: COLUMNS.ID, title: "ID" },
     {
@@ -36,7 +34,11 @@ export const columns = [
     { name: COLUMNS.DISCOUNT_TEXT, title: "Discount" },
     { name: COLUMNS.DISCOUNT_DESCRIPTION, title: "Description" },
     { name: COLUMNS.LANDING_PAGE_URL, title: "Link" },
-    { name: COLUMNS.GAME_TYPE_ID, title: "Game Type" },
+    {
+        name: COLUMNS.GAME_TYPE_ID,
+        title: "Game Type",
+        getCellValue: (row) => (row.gametype_id.type)
+    },
     { name: COLUMNS.SOURCE_ID, title: "Source ID" },
     { name: COLUMNS.LANGUAGE_ID, title: "Language" },
     { name: COLUMNS.MIN_DEPOSIT, title: "Min. Deposit" },
@@ -51,12 +53,25 @@ export const columns = [
         title: "New Customer",
         getCellValue: (row) => (row.new_customer ? "Yes" : "No")
     },
-    { name: COLUMNS.BOOKIES_MARKETS_ID, title: "Country" }
+    { name: COLUMNS.BOOKIES_MARKETS_ID, title: "Country", getCellValue: (row) => (row.bookiesmarkets_id.name) }
 ];
 
 
+export const LandingPageFormatter = ({ value }) => {
+    if (!value || value == "n/a") {
+        return "N/A";
+    }
+    return (
+        <a href={value} rel="external">See Offer</a>
+    );
+};
 
-const TableRowCell = ({ style, ...restProps }) => (
+export const LandingPageProvider = (props) => (
+    <DataTypeProvider formatterComponent={LandingPageFormatter} {...props} />
+);
+
+
+export const TableRowCell = ({ style, ...restProps }) => (
     <Table.Cell
         {...restProps}
         style={{
@@ -65,25 +80,3 @@ const TableRowCell = ({ style, ...restProps }) => (
         }}
     />
 );
-
-const DataTable = ({ rows, currentPage, take, setCurrentPage, totalCount }) => {
-    return (
-        <Paper>
-            <Grid rows={rows} columns={columns}>
-                <PagingState
-                    currentPage={currentPage}
-                    onCurrentPageChange={setCurrentPage}
-                    pageSize={take}
-                />
-                <CustomPaging totalCount={totalCount} />
-                <SortingState defaultSorting={[{ columnName: 'id', direction: 'asc' }]} />
-                <IntegratedSorting />
-                <Table cellComponent={TableRowCell} />
-                <TableHeaderRow showSortingControls />
-                <PagingPanel />
-            </Grid>
-        </Paper>
-    );
-};
-
-export default DataTable;

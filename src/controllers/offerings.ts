@@ -8,8 +8,15 @@ const getAllOfferings = async (
   res: Response,
   next: NextFunction
 ) => {
-  let skip: number = Number(req.params.skip);
-  let take: number = Number(req.params.take);
+  console.log(req.body);
+
+  let skip: number = Number(req.body.skip);
+  let take: number = Number(req.body.take);
+
+  let gametype_id: number = Number(req.body.filterby?.gametype_id);
+  let bookiesmarkets_id: string = req.body.filterby?.bookiesmarkets_id;
+  let bookies_name: string = req.body.filterby?.bookies_name;
+
   let offerings: any;
   let gameTypes: any;
   let bookiesMarkets: any;
@@ -17,8 +24,15 @@ const getAllOfferings = async (
   if (Number.isInteger(skip) && skip >= 0) {
     if (Number.isInteger(take) && take >= 0) {
       offerings = await prisma.offerings.findMany({
-        skip: Number(req.params.skip),
-        take: Number(req.params.take),
+        skip: skip,
+        take: take,
+        where: {
+          ...(gametype_id ? { gametype_id: gametype_id } : {}),
+          ...(bookiesmarkets_id
+            ? { bookiesmarkets_id: bookiesmarkets_id }
+            : {}),
+          ...(bookies_name ? { bookies_name: bookies_name } : {}),
+        },
       });
 
       gameTypes = await prisma.gametype.findMany();
@@ -32,8 +46,10 @@ const getAllOfferings = async (
         );
         console.log("GAME TYPE", gameType);
         console.log("Bookies Markets: ", bookieMarket);
-        el.gametype_id = gameType.type;
-        el.bookiesmarkets_id = bookieMarket?.name ? bookieMarket.name : el.bookiesmarkets_id;
+        el.gametype_id = gameType;
+        el.bookiesmarkets_id = bookieMarket?.name
+          ? bookieMarket
+          : el.bookiesmarkets_id;
         return el;
       });
       return res.status(200).json({
