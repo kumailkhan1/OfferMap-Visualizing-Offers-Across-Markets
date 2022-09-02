@@ -1,8 +1,6 @@
 import { DataTypeProvider } from "@devexpress/dx-react-grid";
 import { Table } from "@devexpress/dx-react-grid-material-ui";
 
-
-
 export const COLUMNS = {
     ID: "id",
     RECORDED_AT: "recorded_at",
@@ -19,8 +17,6 @@ export const COLUMNS = {
     NEW_CUSTOMER: "new_customer",
     BOOKIES_MARKETS_ID: "bookiesmarkets_id"
 };
-
-
 
 
 export const columns = [
@@ -80,3 +76,4 @@ export const TableRowCell = ({ style, ...restProps }) => (
         }}
     />
 );
+

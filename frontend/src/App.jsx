@@ -15,23 +15,7 @@ const theme = createTheme({
 });
 
 const App = () => {
-    const [rows, setRows] = useState([]);
-    const [skip, setSkip] = useState(0);
-    const [currentPage, setCurrentPage] = useState(0);
-    const [totalCount, setTotalCount] = useState(79429);
-    const [take] = useState(10);
-    const filterby = {};
 
-    useEffect(() => {
-
-        async function fetchData() {
-            let newRows = await getAllOffers(take * currentPage, take, filterby);
-            console.log(newRows.offerings)
-            setRows(newRows.offerings)
-
-        }
-        fetchData();
-    }, [currentPage])
 
     return (
         <>
@@ -50,13 +34,7 @@ const App = () => {
                         <Container style={{ padding: '20px 0' }}>
                             <Typography variant='h3' align='center' color='primary' gutterBottom>Dashboard</Typography>
                             <Typography variant='h4' align='left'>Offers</Typography>
-                            <DataTable
-                                rows={rows}
-                                currentPage={currentPage}
-                                setCurrentPage={setCurrentPage}
-                                take={take}
-                                totalCount={totalCount}
-                            />
+                            <DataTable />
                         </Container>
 
 

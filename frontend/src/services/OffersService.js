@@ -8,7 +8,7 @@ export async function getAllOffers(skip, take, filterby) {
             take: take,
             filterby: filterby
         });
-        console.log('response  ', offers)
+        // console.log('response  ', offers)
         return offers.data;
     } catch (err) {
         return [];

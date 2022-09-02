@@ -16,13 +16,30 @@ const getAllOfferings = async (
   let gametype_id: number = Number(req.body.filterby?.gametype_id);
   let bookiesmarkets_id: string = req.body.filterby?.bookiesmarkets_id;
   let bookies_name: string = req.body.filterby?.bookies_name;
+  let fromDate: Date = req.body.filterby?.fromDate;
+  let toDate: Date = req.body.filterby?.toDate;
 
   let offerings: any;
   let gameTypes: any;
   let bookiesMarkets: any;
+  let totalCount: any;
 
   if (Number.isInteger(skip) && skip >= 0) {
     if (Number.isInteger(take) && take >= 0) {
+      totalCount = await prisma.offerings.findMany({
+        where: {
+          ...(gametype_id ? { gametype_id: gametype_id } : {}),
+          ...(bookiesmarkets_id
+            ? { bookiesmarkets_id: bookiesmarkets_id }
+            : {}),
+          ...(bookies_name ? { bookies_name: bookies_name } : {}),
+          recorded_at: {
+            gte: fromDate ? fromDate : new Date(fromDate),
+            lte: toDate ? toDate : new Date(),
+          },
+        },
+      });
+
       offerings = await prisma.offerings.findMany({
         skip: skip,
         take: take,
@@ -32,6 +49,10 @@ const getAllOfferings = async (
             ? { bookiesmarkets_id: bookiesmarkets_id }
             : {}),
           ...(bookies_name ? { bookies_name: bookies_name } : {}),
+          recorded_at: {
+            gte: fromDate ? fromDate : new Date(fromDate),
+            lte: toDate ? toDate : new Date(),
+          },
         },
       });
 
@@ -54,6 +75,7 @@ const getAllOfferings = async (
       });
       return res.status(200).json({
         offerings,
+        totalCount: totalCount.length,
       });
     }
   }
