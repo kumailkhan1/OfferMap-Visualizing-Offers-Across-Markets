@@ -5,6 +5,7 @@ import { BookiesRouter } from "./routes/BookiesRoutes";
 import { GametypesRouter } from "./routes/GametypeRoutes";
 import { BookiesMarketsRouter } from "./routes/BookiesMarketsRoutes";
 import { OfferingsRouter } from "./routes/OfferingsRoutes";
+import { TopRouter } from "./routes/TopRouter";
 
 const router: Express = express();
 
@@ -35,6 +36,7 @@ router.use("/bookies", BookiesRouter);
 router.use("/gametype", GametypesRouter);
 router.use("/markets", BookiesMarketsRouter);
 router.use("/offerings", OfferingsRouter);
+router.use("/top", TopRouter);
 
 // Error handler
 

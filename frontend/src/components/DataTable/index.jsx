@@ -89,6 +89,7 @@ const DataTable = () => {
         fetchData();
     }, [])
 
+    console.log(startOfDay(new Date(fromDate)));
 
     return (
         <Paper>

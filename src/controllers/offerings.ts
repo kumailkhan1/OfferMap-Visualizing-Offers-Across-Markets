@@ -1,5 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { PrismaClient } from "@prisma/client";
+import {
+  PrismaClient,
+  offerings,
+  gametype,
+  bookiesmarkets,
+} from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -19,23 +24,23 @@ const getAllOfferings = async (
   let fromDate: Date = req.body.filterby?.fromDate;
   let toDate: Date = req.body.filterby?.toDate;
 
-  let offerings: any;
-  let gameTypes: any;
-  let bookiesMarkets: any;
-  let totalCount: any;
+  let offerings: offerings[];
+  let totalCount: offerings[];
+  let gameTypes: gametype[];
+  let bookiesMarkets: bookiesmarkets[];
 
   if (Number.isInteger(skip) && skip >= 0) {
     if (Number.isInteger(take) && take >= 0) {
       totalCount = await prisma.offerings.findMany({
         where: {
-          ...(gametype_id ? { gametype_id: gametype_id } : {}),
+          ...(gametype_id ? { gametype_id: gametype_id } : null),
           ...(bookiesmarkets_id
             ? { bookiesmarkets_id: bookiesmarkets_id }
             : {}),
-          ...(bookies_name ? { bookies_name: bookies_name } : {}),
+          ...(bookies_name ? { bookies_name: bookies_name } : ""),
           recorded_at: {
-            gte: fromDate ? fromDate : new Date(fromDate),
-            lte: toDate ? toDate : new Date(),
+            gte: fromDate ? fromDate : undefined,
+            lte: toDate ? toDate : undefined,
           },
         },
       });
@@ -44,14 +49,14 @@ const getAllOfferings = async (
         skip: skip,
         take: take,
         where: {
-          ...(gametype_id ? { gametype_id: gametype_id } : {}),
+          ...(gametype_id ? { gametype_id: gametype_id } : null),
           ...(bookiesmarkets_id
             ? { bookiesmarkets_id: bookiesmarkets_id }
             : {}),
-          ...(bookies_name ? { bookies_name: bookies_name } : {}),
+          ...(bookies_name ? { bookies_name: bookies_name } : ""),
           recorded_at: {
-            gte: fromDate ? fromDate : new Date(fromDate),
-            lte: toDate ? toDate : new Date(),
+            gte: fromDate ? fromDate : undefined,
+            lte: toDate ? toDate : undefined,
           },
         },
       });
@@ -85,7 +90,7 @@ const getAllOfferings = async (
 };
 
 const getOffering = async (req: Request, res: Response, next: NextFunction) => {
-  const offering = await prisma.offerings.findUnique({
+  const offering: offerings = await prisma.offerings.findUnique({
     where: {
       id: Number(req.params.id),
     },
