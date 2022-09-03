@@ -33,7 +33,7 @@ const App = () => {
                     <div>
                         <Container style={{ padding: '20px 0' }}>
                             <Typography variant='h3' align='center' color='primary' gutterBottom>Dashboard</Typography>
-                            <Typography variant='h4' align='left'>Offers</Typography>
+                            <Typography variant='h4' margin={'10px'}>Offers</Typography>
                             <DataTable />
                         </Container>
 
