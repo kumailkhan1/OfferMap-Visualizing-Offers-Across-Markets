@@ -26,4 +26,26 @@ const getGametype = async (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export { getAllGametypes, getGametype };
+const getTopGameTypes = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const topGameTypes = await prisma.offerings.groupBy({
+    by: ["gametype_id"],
+    _count: {
+      gametype_id: true,
+    },
+    orderBy: {
+      gametype_id: "desc",
+    },
+  });
+
+  const topGames = topGameTypes.map((el) => {
+    return { count: el._count.gametype_id, gametype_id: el.gametype_id };
+  });
+
+  return res.status(200).json({ topGameTypes: topGames });
+};
+
+export { getAllGametypes, getGametype, getTopGameTypes };

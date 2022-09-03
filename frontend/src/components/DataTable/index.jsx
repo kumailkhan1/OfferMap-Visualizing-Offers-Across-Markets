@@ -15,6 +15,9 @@ import { getFilters } from "../../services/FiltersService";
 import Loader from '../Loader'
 import { startOfDay, endOfDay } from "date-fns";
 
+import BarChart from '../BarChart';
+import PieChart from '../PieChart';
+
 const DataTable = () => {
 
     const AllItem = { id: 0, value: "", name: "ALL", type: "ALL" };
@@ -92,45 +95,56 @@ const DataTable = () => {
     console.log(startOfDay(new Date(fromDate)));
 
     return (
-        <Paper>
-            <Filter
-                AllItem={AllItem}
-                gameType={gameType}
-                setGameType={setGameType}
-                country={country}
-                setCountry={setCountry}
-                company={company}
-                setCompany={setCompany}
-                fromDate={fromDate}
-                setFromDate={setFromDate}
-                toDate={toDate}
-                setToDate={setToDate}
-                games={games}
-                countries={countries}
-                companies={companies}
-            ></Filter>
+        <>
+            <Paper>
+                <Filter
+                    AllItem={AllItem}
+                    gameType={gameType}
+                    setGameType={setGameType}
+                    country={country}
+                    setCountry={setCountry}
+                    company={company}
+                    setCompany={setCompany}
+                    fromDate={fromDate}
+                    setFromDate={setFromDate}
+                    toDate={toDate}
+                    setToDate={setToDate}
+                    games={games}
+                    countries={countries}
+                    companies={companies}
+                ></Filter>
+                {loading ? (
+                    <Loader thickness={2} size={50} top={50} />
+                ) :
+                    <Grid rows={rows} columns={columns}>
+
+
+                        <LandingPageProvider for={[COLUMNS.LANDING_PAGE_URL]} />
+                        <PagingState
+                            currentPage={currentPage}
+                            onCurrentPageChange={setCurrentPage}
+                            pageSize={take}
+                        />
+                        <CustomPaging totalCount={totalCount} />
+                        <SortingState defaultSorting={[{ columnName: 'id', direction: 'asc' }]} />
+                        <IntegratedSorting />
+                        <Table cellComponent={TableRowCell} />
+                        <TableHeaderRow showSortingControls />
+                        <PagingPanel />
+                    </Grid>
+
+
+                }
+            </Paper>
             {loading ? (
                 <Loader thickness={2} size={50} top={50} />
             ) :
-                <Grid rows={rows} columns={columns}>
-
-
-                    <LandingPageProvider for={[COLUMNS.LANDING_PAGE_URL]} />
-                    <PagingState
-                        currentPage={currentPage}
-                        onCurrentPageChange={setCurrentPage}
-                        pageSize={take}
-                    />
-                    <CustomPaging totalCount={totalCount} />
-                    <SortingState defaultSorting={[{ columnName: 'id', direction: 'asc' }]} />
-                    <IntegratedSorting />
-                    <Table cellComponent={TableRowCell} />
-                    <TableHeaderRow showSortingControls />
-                    <PagingPanel />
-                </Grid>
-
-            }
-        </Paper>
+                <div>
+                    <BarChart />
+                    <PieChart />
+                </div>
+                }
+        </>
     );
 };
 

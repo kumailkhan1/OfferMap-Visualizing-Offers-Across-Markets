@@ -16,7 +16,6 @@ const getAllBookies = async (
 };
 
 const getBookie = async (req: Request, res: Response, next: NextFunction) => {
-  
   const bookie: bookies | {} = await prisma.bookies.findUnique({
     where: {
       id: Number(req.params.id),
@@ -29,4 +28,29 @@ const getBookie = async (req: Request, res: Response, next: NextFunction) => {
   });
 };
 
-export { getAllBookies, getBookie };
+const getTopBookies = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const topBookiesName = await prisma.offerings.groupBy({
+    take: 5,
+    by: ["bookies_name"],
+    _count: {
+      bookies_name: true,
+    },
+    orderBy: {
+      _count: {
+        bookies_name: "desc",
+      },
+    },
+  });
+
+  const topBookies = topBookiesName.map((el) => {
+    return { count: el._count.bookies_name, bookies_name: el.bookies_name };
+  });
+
+  return res.status(200).json({ topBookies });
+};
+
+export { getAllBookies, getBookie, getTopBookies };

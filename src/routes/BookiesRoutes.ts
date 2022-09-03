@@ -1,7 +1,12 @@
 import express from "express";
-import { getAllBookies, getBookie } from "../controllers/bookies";
+import {
+  getAllBookies,
+  getBookie,
+  getTopBookies,
+} from "../controllers/bookies";
 
 export const BookiesRouter = express.Router();
 
 BookiesRouter.get("/", getAllBookies);
+BookiesRouter.get("/top", getTopBookies);
 BookiesRouter.get("/:id", getBookie);
