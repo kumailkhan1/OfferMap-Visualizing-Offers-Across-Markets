@@ -41,11 +41,19 @@ const getTopGameTypes = async (
     },
   });
 
-  const topGames = topGameTypes.map((el) => {
-    return { count: el._count.gametype_id, gametype_id: el.gametype_id };
+  const gameTypeNames = await prisma.gametype.findMany();
+
+  const topGames: any = [];
+  topGameTypes.forEach((top) => {
+    gameTypeNames.forEach((name) => {
+      if (name.id == top.gametype_id) {
+        topGames.push({ count: top._count.gametype_id, gametype_id: name.type });
+      }
+    });
   });
 
-  return res.status(200).json({ topGameTypes: topGames });
+  
+  return res.status(200).json({ topGames });
 };
 
 export { getAllGametypes, getGametype, getTopGameTypes };

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Paper, styled, Link } from "@mui/material";
+import { Paper, styled, Link, Box, Typography } from "@mui/material";
 import {
     Grid,
     Table,
     TableHeaderRow,
     PagingPanel,
 
+
 } from "@devexpress/dx-react-grid-material-ui";
 import { PagingState, CustomPaging, SortingState, IntegratedSorting, } from "@devexpress/dx-react-grid";
-import { LandingPageProvider, TableRowCell, COLUMNS, columns } from "./utils";
+import { LandingPageProvider, TableRowCell, COLUMNS, columns, TableHeaderRowCell } from "./utils";
 import { Filter } from './filter';
 import { getAllOffers } from "../../services/OffersService";
 import { getFilters } from "../../services/FiltersService";
@@ -18,7 +19,7 @@ import { startOfDay, endOfDay } from "date-fns";
 import BarChart from '../BarChart';
 import PieChart from '../PieChart';
 
-const DataTable = () => {
+const DataTable = ({ setLoading, loading }) => {
 
     const AllItem = { id: 0, value: "", name: "ALL", type: "ALL" };
     const [rows, setRows] = useState([]);
@@ -33,7 +34,7 @@ const DataTable = () => {
     const [games, setGames] = useState([]);
     const [countries, setCountries] = useState([]);
     const [companies, setCompanies] = useState([]);
-    const [loading, setLoading] = useState(false)
+
 
     useEffect(() => {
         const filterby = {
@@ -119,6 +120,7 @@ const DataTable = () => {
                     <Grid rows={rows} columns={columns}>
 
 
+
                         <LandingPageProvider for={[COLUMNS.LANDING_PAGE_URL]} />
                         <PagingState
                             currentPage={currentPage}
@@ -128,22 +130,19 @@ const DataTable = () => {
                         <CustomPaging totalCount={totalCount} />
                         <SortingState defaultSorting={[{ columnName: 'id', direction: 'asc' }]} />
                         <IntegratedSorting />
+
                         <Table cellComponent={TableRowCell} />
-                        <TableHeaderRow showSortingControls />
+
+                        <TableHeaderRow showSortingControls cellComponent={TableHeaderRowCell} />
                         <PagingPanel />
-                    </Grid>
 
 
-                }
+                    </Grid>}
+
+
+
             </Paper>
-            {loading ? (
-                <Loader thickness={2} size={50} top={50} />
-            ) :
-                <div>
-                    <BarChart />
-                    <PieChart />
-                </div>
-                }
+
         </>
     );
 };

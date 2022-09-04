@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 import {
     Chart,
     ArgumentAxis,
     ValueAxis,
     PieSeries,
     Tooltip,
-    Title
+    Title,
+    Legend
 } from '@devexpress/dx-react-chart-material-ui';
 import { scaleBand } from '@devexpress/dx-chart-core';
 import { ArgumentScale, Stack } from '@devexpress/dx-react-chart';
@@ -33,7 +34,7 @@ const PieChart = () => {
     }, [])
     // console.log(bookies);
     return (
-        <Paper elevation={3} sx={{ width: '50%', mt: 2 }}>
+        <Grid item xs={12} md={6}>
             <Chart
                 data={bookies}
             >
@@ -42,6 +43,7 @@ const PieChart = () => {
                     valueField="count"
                     argumentField="gametype_id"
                 />
+                <Legend position='top' />
                 <Title
                     text="Offers by Gametypes"
                 />
@@ -51,7 +53,7 @@ const PieChart = () => {
 
                 <Stack />
             </Chart>
-        </Paper>
+        </Grid>
     );
 }
 export default PieChart;

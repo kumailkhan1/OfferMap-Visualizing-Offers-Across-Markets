@@ -77,3 +77,13 @@ export const TableRowCell = ({ style, ...restProps }) => (
     />
 );
 
+export const TableHeaderRowCell = ({ style, ...restProps }) => (
+    <Table.Cell
+        {...restProps}
+        style={{
+            wordWrap: "break-word",
+            whiteSpace: "normal"
+        }}
+    />
+);
+
