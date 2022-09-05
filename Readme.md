@@ -267,6 +267,7 @@ The structure is somewhat similar to backend. ***src*** folder contains componen
 ***src/components*** contains all the components that are used in the app. 
 
 They are:
+
 i. DataTable -> renders the table with filters and 10 rows at a time. Provides button to go to the next page i.e. fetching consequent 10 rows from the server.
 
 ii. BarChart -> has been used to show the top 5 companies with most number of offers in a bar chart
@@ -282,9 +283,10 @@ The app has been built as a single-page and no routing has been used.
 
 ------------
 
-## Improvements
+## Possible Improvements
 1. The charts can be displayed in a separate tab. React Routing would get the job done. Currently, the charts are re-rendered when new data is fetched for the table.
 2. Integration and E2E testing not performed which could uncover more bugs.
 3. Sorting function as such not implemented on server side. Currently, the sorting works only on the displayed 10 rows.
+4. Provide more interesting insights from the data.
 
 
