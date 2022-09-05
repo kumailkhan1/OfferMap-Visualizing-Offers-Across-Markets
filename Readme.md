@@ -268,8 +268,11 @@ The structure is somewhat similar to backend. ***src*** folder contains componen
 
 They are:
 i. DataTable -> renders the table with filters and 10 rows at a time. Provides button to go to the next page i.e. fetching consequent 10 rows from the server.
+
 ii. BarChart -> has been used to show the top 5 companies with most number of offers in a bar chart
+
 iii. PieChart -> displays the offers by gametype
+
 iv. Loader -> used in DataTable to display a loading screen when the data is being fetched from the server
 
 ***src/services*** -> contains the API calls to the server.
