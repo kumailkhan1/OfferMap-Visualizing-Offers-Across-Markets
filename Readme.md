@@ -254,7 +254,7 @@ e.g for gametype_id =1, it returns
 
 An example of on one of the **requests to gametypes table** has been shown :
 
-An example of on one of the **requests to gametypes table** has been shown :
+![image](https://user-images.githubusercontent.com/31304633/188513462-ab775b71-e8ea-4b0d-88d2-44732c570cee.png)
 
 
 #### 2. Frontend:
@@ -276,4 +276,12 @@ iv. Loader -> used in DataTable to display a loading screen when the data is bei
 
 The app has been built as a single-page and no routing has been used. 
 ![image](https://user-images.githubusercontent.com/31304633/188511765-8d1c0fe7-1588-4335-b55f-791d982c504a.png)
+
+------------
+
+## Improvements
+1. The charts can be displayed in a separate tab. React Routing would get the job done. Currently, the charts are re-rendered when new data is fetched for the table.
+2. Integration and E2E testing not performed which could uncover more bugs.
+3. Sorting function as such not implemented on server side. Currently, the sorting works only on the displayed 10 rows.
+
 
