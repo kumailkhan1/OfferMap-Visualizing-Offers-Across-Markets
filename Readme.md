@@ -88,9 +88,13 @@ The API has been built using Typescript in NodeJS and ExpressJS. ExpressJS has b
 
 **Structure**:
 ***src/* **: containes all the files and directories of the backend application
+
 ***src/index.ts* **: starting point of the api. Setups the incoming requests format, setups routers and starts an HTTP server on Port 8000.
+
 ***src/routes***: src/index.ts routes the incoming requests to the respective router. For querying each table of the database, a separate route has been defined to cater the different incoming requests.
+
 ***src/controllers:*** The routes are then attached to different controllers based on the router requested. Just like the src/routes , the src/controllers contains the controllers that based on the incoming request, interacts with the database and returns a response which is then sent back to the client.
+
 ***src/middleware***: In the middleware directory, a simple *error* logging middleware are used so that it catches the error when the requests are sent on the route which is not allowed.
 
 Apart from these, the backend has a separate ***prisma/schema.prisma*** file that contains the schema which the prisma has extracted out from our database.
@@ -106,7 +110,9 @@ Frontend of the app has been implemented with ReactJS. Material UI and [DevExpre
 
 **Structure**:
 The structure is somewhat similar to backend. ***src*** folder contains components, services and entry point of our app **index.js**
+
 ***src/components*** contains all the components that are used in the app. 
+
 They are:
 i. DataTable -> renders the table with filters and 10 rows at a time. Provides button to go to the next page i.e. fetching consequent 10 rows from the server.
 ii. BarChart -> has been used to show the top 5 companies with most number of offers in a bar chart
