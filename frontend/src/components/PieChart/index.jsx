@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import {
     Chart,
-    ArgumentAxis,
-    ValueAxis,
     PieSeries,
     Tooltip,
     Title,

@@ -7,10 +7,3 @@ it('should not display market data (charts) when data is loading initially',asyn
     expect(marketData).not.toBeInTheDocument();
 
 })
-
-it('should display market data (charts) when data is done loading',async () => {
-    render(<App />)
-    const marketData = screen.queryByText(/market data/i);
-    expect(marketData).toBeInTheDocument();
-
-})
