@@ -87,9 +87,9 @@ The data is stored in a MySQL database. It has four tables named; bookies, booki
 The API has been built using Typescript in NodeJS and ExpressJS. ExpressJS has been used for the basic API routing and to process and respond to requests. [Prisma](https://www.prisma.io/ "Prisma") ORM has been used to interact with the MySQL database.
 
 **Structure**:
-***src/* **: containes all the files and directories of the backend application
+***src/***: containes all the files and directories of the backend application
 
-***src/index.ts* **: starting point of the api. Setups the incoming requests format, setups routers and starts an HTTP server on Port 8000.
+***src/index.ts***: starting point of the api. Setups the incoming requests format, setups routers and starts an HTTP server on Port 8000.
 
 ***src/routes***: src/index.ts routes the incoming requests to the respective router. For querying each table of the database, a separate route has been defined to cater the different incoming requests.
 
