@@ -16,11 +16,13 @@ function Loader({ size, thickness, top }) {
             display="flex"
             alignItems="center"
             justifyContent="center"
+          
         >
             <CircularProgress
                 size={size || 64}
                 disableShrink
                 thickness={thickness || 3}
+
             />
         </Box>
     );

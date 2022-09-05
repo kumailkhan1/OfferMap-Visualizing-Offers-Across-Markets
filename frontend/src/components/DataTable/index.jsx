@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Paper, styled, Link, Box, Typography } from "@mui/material";
+import { Paper } from "@mui/material";
 import {
     Grid,
     Table,
@@ -15,9 +15,6 @@ import { getAllOffers } from "../../services/OffersService";
 import { getFilters } from "../../services/FiltersService";
 import Loader from '../Loader'
 import { startOfDay, endOfDay } from "date-fns";
-
-import BarChart from '../BarChart';
-import PieChart from '../PieChart';
 
 const DataTable = ({ setLoading, loading }) => {
 
@@ -77,7 +74,6 @@ const DataTable = ({ setLoading, loading }) => {
                 setCurrentPage(0);
 
             }
-            console.log(newRows.offering, newRows.totalCount)
         }
         fetchData();
     }, [gameType, country, company, fromDate, toDate])
@@ -115,7 +111,7 @@ const DataTable = ({ setLoading, loading }) => {
                     companies={companies}
                 ></Filter>
                 {loading ? (
-                    <Loader thickness={2} size={50} top={50} />
+                    <Loader thickness={2} size={50} top={50}  />
                 ) :
                     <Grid rows={rows} columns={columns}>
 

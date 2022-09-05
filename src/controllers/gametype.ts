@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { PrismaClient, gametype } from "@prisma/client";
+import { HttpException } from "../middleware/error";
 
 const prisma = new PrismaClient();
 
@@ -15,15 +16,20 @@ const getAllGametypes = async (
 };
 
 const getGametype = async (req: Request, res: Response, next: NextFunction) => {
-  const gametype: gametype = await prisma.gametype.findUnique({
-    where: {
-      id: Number(req.params.id),
-    },
-  });
+  try {
+    const gametype: gametype = await prisma.gametype.findUnique({
+      where: {
+        id: Number(req.params.id),
+      },
+    });
 
-  return res.status(200).json({
-    gametype,
-  });
+    return res.status(200).json({
+      gametype,
+    });
+  } catch (err) {
+    let error = new HttpException(404, "ID should be a number");
+    next(error);
+  }
 };
 
 const getTopGameTypes = async (
@@ -47,12 +53,14 @@ const getTopGameTypes = async (
   topGameTypes.forEach((top) => {
     gameTypeNames.forEach((name) => {
       if (name.id == top.gametype_id) {
-        topGames.push({ count: top._count.gametype_id, gametype_id: name.type });
+        topGames.push({
+          count: top._count.gametype_id,
+          gametype_id: name.type,
+        });
       }
     });
   });
 
-  
   return res.status(200).json({ topGames });
 };
 

@@ -10,3 +10,5 @@ export const BookiesRouter = express.Router();
 BookiesRouter.get("/", getAllBookies);
 BookiesRouter.get("/top", getTopBookies);
 BookiesRouter.get("/:id", getBookie);
+
+

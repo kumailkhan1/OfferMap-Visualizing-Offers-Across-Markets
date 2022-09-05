@@ -5,6 +5,7 @@ import { BookiesRouter } from "./routes/BookiesRoutes";
 import { GametypesRouter } from "./routes/GametypeRoutes";
 import { BookiesMarketsRouter } from "./routes/BookiesMarketsRoutes";
 import { OfferingsRouter } from "./routes/OfferingsRoutes";
+import { InvalidPathHandler } from "./middleware/error";
 
 const router: Express = express();
 
@@ -37,14 +38,7 @@ router.use("/markets", BookiesMarketsRouter);
 router.use("/offerings", OfferingsRouter);
 
 // Error handler
-
-router.use((req, res, next) => {
-  const error = new Error("Does not exist.");
-  return res.status(404).json({
-    message: error.message,
-  });
-});
-
+router.use(InvalidPathHandler);
 // Starting server
 
 const server = http.createServer(router);

@@ -5,6 +5,7 @@ import {
   gametype,
   bookiesmarkets,
 } from "@prisma/client";
+import { HttpException } from "../middleware/error";
 
 const prisma = new PrismaClient();
 
@@ -19,6 +20,8 @@ const getAllOfferings = async (
   let take: number = Number(req.body.take);
 
   let gametype_id: number = Number(req.body.filterby?.gametype_id);
+  console.log(gametype_id);
+
   let bookiesmarkets_id: string = req.body.filterby?.bookiesmarkets_id;
   let bookies_name: string = req.body.filterby?.bookies_name;
   let fromDate: Date = req.body.filterby?.fromDate;
@@ -90,15 +93,20 @@ const getAllOfferings = async (
 };
 
 const getOffering = async (req: Request, res: Response, next: NextFunction) => {
-  const offering: offerings = await prisma.offerings.findUnique({
-    where: {
-      id: Number(req.params.id),
-    },
-  });
+  try {
+    const offering: offerings = await prisma.offerings.findUnique({
+      where: {
+        id: Number(req.params.id),
+      },
+    });
 
-  return res.status(200).json({
-    offering,
-  });
+    return res.status(200).json({
+      offering,
+    });
+  } catch (err) {
+    let error = new HttpException(404, "ID should be a number.");
+    next(error);
+  }
 };
 
 export { getAllOfferings, getOffering };

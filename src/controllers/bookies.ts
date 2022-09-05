@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { PrismaClient, bookies } from "@prisma/client";
+import { HttpException } from "../middleware/error";
 
 const prisma = new PrismaClient();
 
@@ -16,16 +17,29 @@ const getAllBookies = async (
 };
 
 const getBookie = async (req: Request, res: Response, next: NextFunction) => {
-  const bookie: bookies | {} = await prisma.bookies.findUnique({
-    where: {
-      id: Number(req.params.id),
-    },
-  });
-  console.log(bookie);
+  console.log(Number(req.params.id));
+  let id: number = Number(req.params.id);
 
-  return res.status(200).json({
-    bookie,
-  });
+  try {
+    if (isNaN(id)) {
+      let error = new HttpException(404, "ID should be a number");
+      next(error);
+    }
+
+    const bookie: bookies | {} = await prisma.bookies.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    console.log(bookie);
+
+    return res.status(200).json({
+      bookie,
+    });
+  } catch (err) {
+    next(err);
+  }
 };
 
 const getTopBookies = async (
