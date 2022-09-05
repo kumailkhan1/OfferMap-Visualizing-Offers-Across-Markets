@@ -80,6 +80,36 @@ $ npm build
 
 
 ### App Functionality
+1. A table is used to show the data of 10 rows at a time. The table is complemented with 4 filters;
+
+i. Filter by GameType - Which displays a list of available gametypes
+
+![image](https://user-images.githubusercontent.com/31304633/188515608-4d0ba992-b853-40c7-bc57-137bc72ea771.png)
+
+ii. Filter by Market (renamed as Country) - Provides a list of all markets/countries of which offers data is available
+
+![image](https://user-images.githubusercontent.com/31304633/188515659-551de6c9-0d7a-4164-bd34-c9ea4c1ca7a6.png)
+
+iii. Filter by Bookies (renamed as company) - Provides a list of all companies/bookies using which you can filter the data for specific bookies
+
+![image](https://user-images.githubusercontent.com/31304633/188515713-57ded3e6-73e5-4e8d-94ff-53b794502fa5.png)
+
+iv. Filter by Date Range - FROM and TO date can be selected to provide a date range to filter the data
+
+![image](https://user-images.githubusercontent.com/31304633/188515766-c47725c8-0d13-4e2c-a22a-d2ee32e359aa.png)
+
+The following are couple of examples of how the filters can be used.
+
+![image](https://user-images.githubusercontent.com/31304633/188515869-e19f1acd-b570-43c0-8c5e-4ae3b4104399.png)
+
+![image](https://user-images.githubusercontent.com/31304633/188515934-991600e8-5006-4330-9eee-8619867b4db6.png)
+
+2. Pie and Bar Charts are used to display two very interesting insights.
+
+![image](https://user-images.githubusercontent.com/31304633/188516027-963c5794-f418-4c5e-bf67-1b5d0970e939.png)
+
+
+### Implementation Details
 
 #### 1. Backend:
 The data is stored in a MySQL database. It has four tables named; bookies, bookiesmarkets, gametypes and offerings. The ***offerings*** table is the main table which contains offers of different gametypes, by different bookies and the related data like offer link, description etc. It contains over 70000 rows.
@@ -285,7 +315,7 @@ The app has been built as a single-page and no routing has been used.
 
 ## Possible Improvements
 1. The charts can be displayed in a separate tab. React Routing would get the job done. Currently, the charts are re-rendered when new data is fetched for the table.
-2. Integration and E2E testing not performed which could uncover more bugs.
+2. Test Cases for all the components are not written. More test cases can be covered along with Integration and E2E testing performed which could uncover more bugs and provide a thorough testing.
 3. Sorting function as such not implemented on server side. Currently, the sorting works only on the displayed 10 rows.
 4. Provide more interesting insights from the data.
 
