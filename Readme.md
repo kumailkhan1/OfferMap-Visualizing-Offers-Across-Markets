@@ -104,7 +104,7 @@ The ***env*** file contains the PORT number and the database connection string, 
 
 ***API Endpoints***:
 1. GET /bookies - Returns all the bookies (companies) from the bookies table as a JSON.
-    {
+   ``` {
         "bookies": [
             {
                 "id": 6,
@@ -118,11 +118,12 @@ The ***env*** file contains the PORT number and the database connection string, 
             },
     .....
     ]
+    ```
 
 2. GET /bookies/{id} - Return a single bookie with {id}
 3. GET /bookies/top - Returns top 5 companies with most offers from the offerings table
 4. GET /gametype - Returns all the gametypes from the gametype table as JSON.
-    {
+   ``` {
         "gametypes": [
             {
                 "id": 1,
@@ -142,10 +143,11 @@ The ***env*** file contains the PORT number and the database connection string, 
             }
         ]
     }
+    ```
 5. GET /gametype/{id} - Returns a single gametype with {id}
 6. GET /gametype/top - Returns all the gametype with their corresponding count of offers from the offerings table
 7. GET /markets - Returns all the markets (countries)
-    {
+   ``` {
         "markets": [
             {
                 "id": "AE",
@@ -156,16 +158,18 @@ The ***env*** file contains the PORT number and the database connection string, 
                 "name": "Argentina"
             },
     ...
-    ]}
+    ]}```
+    
 8. GET /markets/{id} - Return the market with specific {id}
 9. GET /offerings/{id} - Return an offer with {id} 
 10. POST /offerings - Returns 10 rows from the offerings table. Filters can be provided as a body of the post request as following:
-    {
+    ```{
         "skip":0,
         "take":10,
         "filterby":{"gametype_id":"","fromDate":"","toDate":"","bookiesmarkets_id":"IN","bookies_name":"22Bet Sports"}
     
     }
+    ```
 	skip: Rows to skip from the start - **number**
 	take: Rows to take after the skip -  **number**
 	filterby.gametype_id: **number**
@@ -175,6 +179,8 @@ The ***env*** file contains the PORT number and the database connection string, 
 	filterby.bookies_name: **String**
 
 e.g for gametype_id =1, it returns
+    
+    ```
     {
         "offerings": [
             {
@@ -244,8 +250,7 @@ e.g for gametype_id =1, it returns
                 }
             },
     ...
-    ]}
-
+    ]}```
 
 An example of on one of the **requests to gametypes table** has been shown :
 
