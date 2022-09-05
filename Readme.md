@@ -116,3 +116,5 @@ iv. Loader -> used in DataTable to display a loading screen when the data is bei
 ***src/services*** -> contains the API calls to the server.
 
 The app has been built as a single-page and no routing has been used. 
+![image](https://user-images.githubusercontent.com/31304633/188511765-8d1c0fe7-1588-4335-b55f-791d982c504a.png)
+
